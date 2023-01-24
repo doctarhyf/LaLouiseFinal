@@ -5,6 +5,8 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@emotion/react": "11.10.5",
+    "@emotion/styled": "11.10.5",
     "@firebase/util": "1.9.0",
     "@mui/base": "5.0.0-alpha.115",
     "@mui/icons-material": "5.11.0",
