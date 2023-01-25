@@ -22,7 +22,6 @@ export default function MainMenu() {
 
   const gotoMainMenu = () => {
     setCurSection("");
-    alert(JSON.stringify(curSection));
   };
 
   const showSection = (pg) => {
@@ -36,10 +35,11 @@ export default function MainMenu() {
 
     if (cpg !== undefined) {
       setCurSection(cpg);
-      alert(JSON.stringify(cpg));
+
       return;
     }
     setCurSection("");
+
     alert("Page not found");
   };
 
@@ -89,7 +89,9 @@ export default function MainMenu() {
             )
         )}
 
-        {curSection.n === "Pharmacie" && <SecPharmacy />}
+        {curSection.n === "Pharmacie" && (
+          <SecPharmacy sectionData={curSection} />
+        )}
       </Box>
     </Box>
   );
