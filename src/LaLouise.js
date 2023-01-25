@@ -10,15 +10,31 @@ import PageLogin from "./pages/PageLogin";
 import PageMainMenu from "./pages/PageMainMenu";
 import Footer from "./comps/Footer";
 import TopCorner from "./comps/TopCorner";
-import { PAGES } from "./Consts";
+import { PAGES, MAIN_MENU_ITEMS } from "./Consts";
+import { useState } from "react";
 
 export default function LaLouise({ curPage, GotoPage, onLogout }) {
+  const [curSection, setCurSection] = useState(MAIN_MENU_ITEMS[4]);
+
   const onMenuItemClicked = (pg) => {
-    showPage(pg);
+    showSection(pg);
   };
 
-  const showPage = (pg) => {
-    alert(pg);
+  const showSection = (pg) => {
+    let cpg = undefined;
+
+    MAIN_MENU_ITEMS.map((it, idx) => {
+      if (pg === it.n) {
+        cpg = it;
+      }
+    });
+
+    if (cpg !== undefined) {
+      alert(JSON.stringify(cpg));
+      return;
+    }
+
+    alert("Page not found");
   };
 
   return (
