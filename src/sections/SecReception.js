@@ -126,6 +126,18 @@ export default function SecReception({ sectionData }) {
             <MenuItem value={"Hors Zone"}>Hors Zone</MenuItem>
           </Select>
         </FormControl>
+
+        <TextField
+          type="time"
+          value={new Date().getDate()}
+          label={"Heure D'ARRIVEE"}
+          sx={{ width: 1 / 2 }}
+        />
+        <TextField
+          type="date"
+          label={"Date D'ARRIVEE"}
+          sx={{ width: 1 / 2.2 }}
+        />
       </Box>
 
       <Typography variant="h6" sx={{ my: 2 }}>
