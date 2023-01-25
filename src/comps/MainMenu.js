@@ -12,6 +12,7 @@ import { MAIN_MENU_ITEMS } from "../Consts";
 import MainMenuItem from "./MainMenuItem";
 import { useState } from "react";
 import SecPharmacy from "../sections/SecPharmacy";
+import SecReception from "../sections/SecReception";
 
 export default function MainMenu() {
   const [curSection, setCurSection] = useState("");
@@ -90,7 +91,13 @@ export default function MainMenu() {
         )}
 
         {curSection.n === "Pharmacie" && (
-          <SecPharmacy sectionData={curSection} />
+          <SecPharmacy
+            sectionData={curSection}
+            sub="Check All meds available"
+          />
+        )}
+        {curSection.n === "Reception" && (
+          <SecReception sectionData={curSection} />
         )}
       </Box>
     </Box>

@@ -8,8 +8,13 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Paper
+  Paper,
+  Divider,
+  Button
 } from "@mui/material";
+
+import { ArrowRight, Camera, AddIcon } from "@mui/icons-material";
+
 import pharmacy from "../assets/pharmacie.jpg";
 import SectionHeader from "../comps/SectionHeader";
 
@@ -65,6 +70,10 @@ export default function SecPharmacy({ sectionData }) {
   return (
     <Container>
       <SectionHeader data={sectionData} />
+      <Divider />
+      <Box sx={{ my: 2 }}>
+        <Button variant="contained">ARRIVAGE</Button>
+      </Box>
       <TableMeds meds={[]} />
     </Container>
   );

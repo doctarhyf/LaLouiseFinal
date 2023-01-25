@@ -19,9 +19,9 @@ const MAIN_MENU_ITEMS = [
   { n: "Finance", i: finance },
   { n: "Gynecology", i: gynecology },
   { n: "Labo", i: labo },
-  { n: "Pharmacie", i: pharmacie },
+  { n: "Pharmacie", sub: "Check all meds stored", i: pharmacie },
   { n: "Rendez-vous", i: rdv },
-  { n: "Reception", i: reception },
+  { n: "Reception", sub: "Enregistrement d'un nouveau patient.", i: reception },
   { n: "Medecins", i: meds },
   { n: "Infirmiers", i: inf }
 ];

@@ -27,11 +27,12 @@ export default function PageMainMenu() {
         gap: 4,
         display: "flex",
         justifyContent: "space-around",
+        alignItems: { xs: "center", sm: "center", md: "flex-start" },
         flexDirection: { xs: "column", sm: "column", md: "row" }
       }}
     >
       <Box>
-        <Logo sx={{}} />
+        <Logo />
       </Box>
 
       <Paper

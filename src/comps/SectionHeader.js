@@ -7,14 +7,15 @@ export default function SectionHeader({ data }) {
         display: "flex",
         flexDiection: "row",
         justifyContent: "flex-start",
-        gap: 2
+        gap: 2,
+        mb: 2
       }}
     >
       <img src={data.i} width="90" height="90" />
 
       <Box>
         <Typography variant="h4">{data.n}</Typography>
-        <Typography>Store an check all meds</Typography>
+        <Typography>{data.sub}</Typography>
       </Box>
     </Box>
   );
