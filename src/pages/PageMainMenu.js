@@ -24,7 +24,11 @@ function MainMenuItem({ title, icon }) {
     <Box
       onClick={onDepClicked}
       className="main-menu-item"
-      sx={{ width: 90, height: 90, textAlign: "center", m: 2 }}
+      sx={{ width: 90, height: 90, textAlign: "center", m: 2,
+      
+    
+    }}
+
     >
       <img src={icon} />
       <Typography>{title}</Typography>
@@ -48,9 +52,9 @@ export default function PageMainMenu() {
 
       <Paper
         elevation={3}
-        sx={{ width: 660, justifyContent: "center", alignItems: "center" }}
+        sx={{ width: {xs:'100%'}, justifyContent: "center", alignItems: "center" }}
       >
-        <Box sx={{ backgroundColor: "transparant", width: 1 }}>
+        <Box sx={{ backgroundColor: "transparant" }}>
           <Typography
             variant="h4"
             sx={{
@@ -67,7 +71,7 @@ export default function PageMainMenu() {
             Bienvenue chez la louise, veuillez cliquer sur un departement.
           </Typography>
 
-          <Box sx={{ p: 2, display: "flex", flexWrap: "wrap" }}>
+          <Box sx={{ p: 2, display: "flex", justifyContent:'center', alignItems:'center', flexDirection:{xs:'column', md:'row'}, flexWrap: "wrap" }}>
             {MAIN_MENU_ITEMS.map((it, idx) => (
               <MainMenuItem icon={it.i} title={it.n} />
             ))}
