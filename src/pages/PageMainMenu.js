@@ -16,8 +16,13 @@ import pharmacie from "../assets/pharmacie.jpg";
 import { MAIN_MENU_ITEMS } from "../Consts";
 
 function MainMenuItem({ title, icon }) {
+  const onDepClicked = (e) => {
+    alert(title);
+  };
+
   return (
     <Box
+      onClick={onDepClicked}
       className="main-menu-item"
       sx={{ width: 90, height: 90, textAlign: "center", m: 2 }}
     >
@@ -32,11 +37,11 @@ export default function PageMainMenu() {
     <Box
       sx={{
         backgroundColor: "transparant",
-        width: "auto",
+        width: { md: "auto", xs: 1, sm: 1 },
         gap: 4,
         display: "flex",
         alignItems: "center",
-        flexDirection: { sm: "column", md: "row" }
+        flexDirection: { xs: "column", sm: "column", md: "row" }
       }}
     >
       <Logo sx={{}} />
@@ -47,6 +52,7 @@ export default function PageMainMenu() {
       >
         <Box sx={{ backgroundColor: "transparant", width: 1 }}>
           <Typography
+            variant="h4"
             sx={{
               fontWeight: "bold",
               backgroundColor: "transparant",
@@ -55,6 +61,10 @@ export default function PageMainMenu() {
             }}
           >
             MAIN MENU
+          </Typography>
+
+          <Typography sx={{ textAlign: "center" }}>
+            Bienvenue chez la louise, veuillez cliquer sur un departement.
           </Typography>
 
           <Box sx={{ p: 2, display: "flex", flexWrap: "wrap" }}>
