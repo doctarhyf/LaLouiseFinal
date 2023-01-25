@@ -39,7 +39,7 @@ export default function PageLogin({ GotoPage }) {
             onChange={(e) => setPhone(e.target.value)}
             id="filled-basic"
             label="Phone"
-            variant="filled"
+            variant="outlined"
           />
           <TextField
             type="password"
@@ -47,7 +47,7 @@ export default function PageLogin({ GotoPage }) {
             onChange={(e) => setPassword(e.target.value)}
             id="filled-basic"
             label="Password"
-            variant="filled"
+            variant="outlined"
           />
           <Typography sx={{ textAlign: "center" }}>
             Bienvenue sur le systeme de gestion de LaLouise @2023 . Veuillez

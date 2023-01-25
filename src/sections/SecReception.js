@@ -30,9 +30,31 @@ export default function SecReception({ sectionData }) {
   const [sex, setSex] = useState("m");
   const [cat, setCat] = useState("a");
   const [zone, setZone] = useState("AS");
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [addresse, setAddresse] = useState("");
+  const [profession, setProfession] = useState("");
+  const [heureArrivee, setHeureArrivee] = useState("");
+  const [dateArrivee, setDateArrivee] = useState("");
+  const [poids, setPoids] = useState(0);
+  const [temp, setTemp] = useState(0);
 
-  const handleChange = (e) => {
-    alert(JSON.stringify(e.target.value));
+  const onSaveNewPatient = (e) => {
+    let fiche = `1.Personal Info\n\nnom:${nom}\n`;
+    fiche = fiche.concat(`prenom:${prenom}\n`);
+    fiche = fiche.concat(`age:${age}\n`);
+    fiche = fiche.concat(`addresse:${addresse}\n`);
+    fiche = fiche.concat(`profession:${profession}\n`);
+    fiche = fiche.concat(`sex:${sex}\n`);
+    fiche = fiche.concat(`zone:${zone}\n`);
+    fiche = fiche.concat(`cat:${cat}\n`);
+    fiche = fiche.concat(`HA:${heureArrivee}\n`);
+    fiche = fiche.concat(`DA:${dateArrivee}\n`);
+    fiche = fiche.concat(`3. Antecedents\n\n`);
+    fiche = fiche.concat(`Poids:${poids}\n`);
+    fiche = fiche.concat(`temp:${temp}\n`);
+
+    alert(fiche);
   };
 
   return (
@@ -57,17 +79,33 @@ export default function SecReception({ sectionData }) {
           flexWrap: "wrap"
         }}
       >
-        <TextField sx={{ width: 1 / 4 }} label={"Nom"} />
-        <TextField sx={{ width: 1 / 3 }} label={"Prenom"} />
+        <TextField
+          value={nom}
+          onChange={(e) => setNom(e.target.value)}
+          sx={{ width: 1 / 4 }}
+          label={"Nom"}
+        />
+        <TextField
+          value={prenom}
+          onChange={(e) => setPrenom(e.target.value)}
+          sx={{ width: 1 / 3 }}
+          label={"Prenom"}
+        />
 
         <TextField
           type="number"
           defaultValue="10"
           sx={{ width: 1 / 3 }}
           label={"Age"}
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
         />
 
-        <TextField label={"Adresse"} />
+        <TextField
+          value={addresse}
+          onChange={(e) => setAddresse(e.target.value)}
+          label={"Adresse"}
+        />
         <FormControl sx={{ width: 1 / 3.6 }}>
           <InputLabel id="demo-simple-select-label">Etat-Civil</InputLabel>
           <Select
@@ -75,7 +113,7 @@ export default function SecReception({ sectionData }) {
             id="demo-simple-select"
             value={etatCivil}
             label="Etat-Civil"
-            onChange={handleChange}
+            onChange={(e) => setEtatCivil(e.target.value)}
           >
             <MenuItem value={"marie"}>Marie</MenuItem>
             <MenuItem value={"celib"}>Celibataire</MenuItem>
@@ -89,14 +127,18 @@ export default function SecReception({ sectionData }) {
             id="demo-simple-select"
             value={sex}
             label="Age"
-            onChange={handleChange}
+            onChange={(e) => setSex(e.target.value)}
           >
             <MenuItem value={"m"}>M</MenuItem>
             <MenuItem value={"f"}>F</MenuItem>
           </Select>
         </FormControl>
 
-        <TextField label={"Profession"} />
+        <TextField
+          value={profession}
+          onChange={(e) => setProfession(e.target.value)}
+          label={"Profession"}
+        />
 
         <FormControl sx={{ width: 1 / 3.6 }}>
           <InputLabel id="demo-simple-select-label">Categorie</InputLabel>
@@ -105,7 +147,7 @@ export default function SecReception({ sectionData }) {
             id="demo-simple-select"
             value={cat}
             label="Etat-Civil"
-            onChange={handleChange}
+            onChange={(e) => setCat(e.target.value)}
           >
             <MenuItem value={"a"}>a</MenuItem>
             <MenuItem value={"b"}>b</MenuItem>
@@ -119,7 +161,7 @@ export default function SecReception({ sectionData }) {
             id="demo-simple-select"
             value={zone}
             label="Etat-Civil"
-            onChange={handleChange}
+            onChange={(e) => setZone(e.target.value)}
           >
             <MenuItem value={"AS"}>AS</MenuItem>
             <MenuItem value={"HA"}>HA</MenuItem>
@@ -129,12 +171,15 @@ export default function SecReception({ sectionData }) {
 
         <TextField
           type="time"
-          value={new Date().getDate()}
-          label={"Heure D'ARRIVEE"}
+          value={heureArrivee}
+          onChange={(e) => setHeureArrivee(e.target.value)}
+          label={"HEURE D'ARRIVEE"}
           sx={{ width: 1 / 2 }}
         />
         <TextField
           type="date"
+          value={dateArrivee}
+          onChange={(e) => setDateArrivee(e.target.value)}
           label={"Date D'ARRIVEE"}
           sx={{ width: 1 / 2.2 }}
         />
@@ -152,8 +197,16 @@ export default function SecReception({ sectionData }) {
         sx={{ display: "flex", flexDirection: "row", gap: 2, flexWrap: "wrap" }}
       >
         <TextField type="date" label={"Date"} sx={{ width: 1 / 2.2 }} />
-        <TextField type="number" label={"Poids"} sx={{ width: 1 / 2 }} />
         <TextField
+          value={poids}
+          onChange={(e) => setPoids(e.target.value)}
+          type="number"
+          label={"Poids"}
+          sx={{ width: 1 / 2 }}
+        />
+        <TextField
+          value={temp}
+          onChange={(e) => setTemp(e.target.value)}
           type="number"
           label={"Temperature"}
           sx={{ width: 1 / 2.2 }}
@@ -161,7 +214,11 @@ export default function SecReception({ sectionData }) {
         <TextField label={"T.A/T.P"} sx={{ width: 1 / 2 }} />
       </Box>
 
-      <Button sx={{ my: 2, width: 1 }} variant="contained">
+      <Button
+        onClick={onSaveNewPatient}
+        sx={{ my: 2, width: 1 }}
+        variant="contained"
+      >
         ENREGISTRER PATIENT
       </Button>
     </Container>
