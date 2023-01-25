@@ -8,15 +8,46 @@ body {
 }
 
 .main-menu-item {
+  border: solid rgba(0, 0, 0, 0.1) 1px;
   cursor: pointer;
   transition: all ease-in-out 100ms;
   background-color: rgba(0, 0, 0, 0);
   padding: 1em;
-  border-radius: 0em;
+  border-radius: 1em;
 }
 
 .main-menu-item:hover {
   transform: scale(1.1);
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 1em;
+}
+
+@media only screen and (max-width: 960px) {
+  .main-menu-items-cont {
+    display: flex;
+  }
+
+  .main-menu-item {
+    width: 80%;
+    margin: 0;
+    margin-bottom: 1em;
+    border: solid rgb(0, 0, 0, 0.1) 1px;
+  }
+
+  .main-menu-item p {
+    font-size: 2em;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .main-menu-item {
+    width: 80%;
+    margin: 0;
+    margin-bottom: 1em;
+    border: solid rgb(0, 0, 0, 0.1) 1px;
+  }
+
+  .main-menu-item p {
+    font-size: 2em;
+  }
 }

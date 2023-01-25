@@ -36,9 +36,7 @@ export default function App() {
       {curPage === PAGES.MAIN_MENU && <PageMainMenu GotoPage={GotoPage} />}
 
       {curPage !== PAGES.LOGIN && <Footer onLogout={onLogout} />}
-      <Typography
-        sx={{ position: "absolute", mb: 2, ml: 2, bottom: 0, left: 0 }}
-      >
+      <Typography sx={{ position: "sticky", mb: 2, ml: 2, bottom: 0, left: 0 }}>
         <Link>@LaLouise</Link> 2023
       </Typography>
     </Container>
