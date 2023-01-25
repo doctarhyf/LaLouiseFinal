@@ -16,8 +16,9 @@ import pharmacie from "../assets/pharmacie.jpg";
 import { MAIN_MENU_ITEMS } from "../Consts";
 import MainMenuItem from "../comps/MainMenuItem";
 import MainMenu from "../comps/MainMenu";
+import SecPharmacy from "../sections/SecPharmacy";
 
-export default function PageMainMenu({ onMenuItemClicked }) {
+export default function PageMainMenu() {
   return (
     <Box
       sx={{
@@ -40,7 +41,7 @@ export default function PageMainMenu({ onMenuItemClicked }) {
           alignItems: "center"
         }}
       >
-        <MainMenu onMenuItemClicked={onMenuItemClicked} />
+        <MainMenu />
       </Paper>
     </Box>
   );
