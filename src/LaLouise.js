@@ -13,12 +13,25 @@ import TopCorner from "./comps/TopCorner";
 import { PAGES } from "./Consts";
 
 export default function LaLouise({ curPage, GotoPage, onLogout }) {
+  const onMenuItemClicked = (pg) => {
+    showPage(pg);
+  };
+
+  const showPage = (pg) => {
+    alert(pg);
+  };
+
   return (
     <Container sx={{ p: 4, mt: 8 }}>
       {curPage !== PAGES.LOGIN && <TopCorner />}
 
       {curPage === PAGES.LOGIN && <PageLogin GotoPage={GotoPage} />}
-      {curPage === PAGES.MAIN_MENU && <PageMainMenu GotoPage={GotoPage} />}
+      {curPage === PAGES.MAIN_MENU && (
+        <PageMainMenu
+          onMenuItemClicked={onMenuItemClicked}
+          GotoPage={GotoPage}
+        />
+      )}
 
       {curPage !== PAGES.LOGIN && <Footer onLogout={onLogout} />}
       <Typography sx={{ position: "sticky", mb: 2, ml: 2, bottom: 0, left: 0 }}>
