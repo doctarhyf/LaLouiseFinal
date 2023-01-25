@@ -10,7 +10,8 @@ import {
   TableBody,
   Paper,
   Divider,
-  Button
+  Button,
+  Chip
 } from "@mui/material";
 
 import { ArrowRight, Camera, AddIcon } from "@mui/icons-material";
@@ -71,9 +72,13 @@ export default function SecPharmacy({ sectionData }) {
     <Container>
       <SectionHeader data={sectionData} />
       <Divider />
-      <Box sx={{ my: 2 }}>
-        <Button variant="contained">ARRIVAGE</Button>
+
+      <Box sx={{ py: 2, display: "flex", flexDirection: "row", gap: 2 }}>
+        <Chip label="ARRIVAGE" color="secondary" />
+
+        <Chip label="VOIR MANQUE EN STOCK" color="primary" />
       </Box>
+      <Divider />
       <TableMeds meds={[]} />
     </Container>
   );
