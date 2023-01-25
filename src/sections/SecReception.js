@@ -31,7 +31,9 @@ export default function SecReception({ sectionData }) {
   const [cat, setCat] = useState("a");
   const [zone, setZone] = useState("AS");
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    alert(JSON.stringify(e.target.value));
+  };
 
   return (
     <Container>
