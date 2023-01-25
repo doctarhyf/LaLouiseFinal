@@ -8,93 +8,27 @@ import {
   TextField,
   Link
 } from "@mui/material";
-import logo from "./assets/logo.jpg";
+import PageLogin from "./pages/PageLogin";
+import PageMainMenu from "./pages/PageMainMenu";
+import Footer from "./comps/Footer";
+
+import { PAGES } from "./Consts";
 
 export default function App() {
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
+  const [curPage, setCurPage] = useState(PAGES.MAIN_MENU);
 
-  const onLogin = (e) => {
-    alert(e);
-  };
+  const GotoPage = (page) => {
+    setCurPage(page);
 
-  const onPasswordLost = (e) => {
-    alert(e);
+    alert(`going to ${page}`);
   };
 
   return (
     <Container sx={{ p: 4 }}>
-      <Box sx={{ gap: 4, display: "flex", flexDirection: "column" }}>
-        <Box
-          sx={{
-            display: "flex",
-            gap: 4,
-            flexDirection: { xs: "column", md: "row" }
-          }}
-        >
-          <Box
-            sx={{
-              width: 306,
-              height: 270,
-              alignSelf: { xs: "center", md: "left" }
-            }}
-          >
-            <img src={logo} alt="La Louise" />
-          </Box>
-          <Box sx={{ display: "flex", gap: 2, flexDirection: "column" }}>
-            <TextField
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              id="filled-basic"
-              label="Phone"
-              variant="filled"
-            />
-            <TextField
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              id="filled-basic"
-              label="Password"
-              variant="filled"
-            />
-            <Typography sx={{ textAlign: "center" }}>
-              Bienvenue sur le systeme de gestion de LaLouise . Veuillez vous
-              connectez avec votre numero de telephone et votre mot de passe
-            </Typography>
-          </Box>
-        </Box>
+      {curPage === PAGES.LOGIN && <PageLogin GotoPage={GotoPage} />}
+      {curPage === PAGES.MAIN_MENU && <PageMainMenu GotoPage={GotoPage} />}
 
-        <Box sx={{ display: "flex", gap: 2, flexDirection: "column" }}>
-          <Button
-            onClick={onLogin}
-            variant="contained"
-            sx={{ width: 1 / 3, alignSelf: "center" }}
-          >
-            SE CONNECTER
-          </Button>
-          <Button
-            onClick={onPasswordLost}
-            color="error"
-            sx={{ width: 1 / 3, alignSelf: "center" }}
-          >
-            Mot de passe oublie?
-          </Button>
-        </Box>
-
-        <Box
-          sx={{
-            position: "fixed",
-            bottom: 0,
-            pb: 2,
-            pt: 4,
-            alignSelf: "center"
-          }}
-        >
-          <Typography>
-            <Link>@DoctaRhyf</Link> 2023
-          </Typography>
-        </Box>
-      </Box>
+      <Footer />
     </Container>
   );
 }
