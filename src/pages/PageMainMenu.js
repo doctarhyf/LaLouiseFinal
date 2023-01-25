@@ -22,16 +22,17 @@ export default function PageMainMenu() {
   return (
     <Box
       sx={{
-        backgroundColor: "transparant",
+        backgroundColor: "transaparent",
         width: { md: "auto", xs: 1, sm: 1 },
         gap: 4,
         display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "flex-start",
+        justifyContent: "space-around",
         flexDirection: { xs: "column", sm: "column", md: "row" }
       }}
     >
-      <Logo sx={{}} />
+      <Box>
+        <Logo sx={{}} />
+      </Box>
 
       <Paper
         elevation={3}
