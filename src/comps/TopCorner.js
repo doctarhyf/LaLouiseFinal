@@ -7,6 +7,17 @@ import {
   Link
 } from "@mui/material";
 import user from "../assets/user.png";
+import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+
+const LoggedInUser = (userData) => {
+  return (
+    <Typography variant="subtitle1" color="success" sx={{ fontWeight: "bold" }}>
+      @DoctaRhyf
+    </Typography>
+  );
+};
 
 export default function Footer({}) {
   return (
@@ -21,15 +32,11 @@ export default function Footer({}) {
         right: 0
       }}
     >
-      <Box>
-        <Typography variant="h6" color="black">
-          @DoctaRhyf
-        </Typography>
-        <Typography color="gray">0892125049</Typography>
-      </Box>
-      <Box>
-        <img src={user} />
-      </Box>
+      <Chip
+        color="success"
+        avatar={<Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />}
+        label={<LoggedInUser />}
+      />
     </Box>
   );
 }

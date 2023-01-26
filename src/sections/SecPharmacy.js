@@ -11,8 +11,10 @@ import {
   Paper,
   Divider,
   Button,
-  Chip
+  Chip,
+  Avatar
 } from "@mui/material";
+import { useState } from "react";
 
 import { ArrowRight, Camera, AddIcon } from "@mui/icons-material";
 
@@ -68,15 +70,37 @@ function TableMeds({ meds }) {
 }
 
 export default function SecPharmacy({ sectionData }) {
+  const [showOnlyNotEnStock, setShowOnlyNotEnStock] = useState(false);
+
+  const handleShowOnlyNotEnStock = () => {
+    setShowOnlyNotEnStock(!showOnlyNotEnStock);
+    alert(showOnlyNotEnStock);
+  };
+
+  const onAjoutInventaire = (e) => {
+    alert("onAjoutInventaire ...");
+  };
+
   return (
     <Container>
       <SectionHeader data={sectionData} />
       <Divider />
 
       <Box sx={{ py: 2, display: "flex", flexDirection: "row", gap: 2 }}>
-        <Chip label="ARRIVAGE" color="secondary" />
+        <Chip
+          onClick={onAjoutInventaire}
+          label="AJOUT ARRIVAGE"
+          color="secondary"
+          avatar={<Avatar>+</Avatar>}
+        />
 
-        <Chip label="VOIR MANQUE EN STOCK" color="primary" />
+        <Chip
+          className="pointer"
+          onClick={handleShowOnlyNotEnStock}
+          label="VOIR MANQUE EN STOCK"
+          color="primary"
+          variant={showOnlyNotEnStock === true ? "outlined" : "filled"}
+        />
       </Box>
       <Divider />
       <TableMeds meds={[]} />
