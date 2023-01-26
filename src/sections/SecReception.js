@@ -22,7 +22,8 @@ import { ArrowRight, Camera, AddIcon } from "@mui/icons-material";
 
 import pharmacy from "../assets/pharmacie.jpg";
 import SectionHeader from "../comps/SectionHeader";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import handleSaveNewPatient from "../handles/handleSaveNewPatient";
 
 export default function SecReception({ sectionData }) {
   const [age, setAge] = useState(30);
@@ -38,6 +39,7 @@ export default function SecReception({ sectionData }) {
   const [dateArrivee, setDateArrivee] = useState("");
   const [poids, setPoids] = useState(0);
   const [temp, setTemp] = useState(0);
+  const [ficheData, setFicheData] = useState({});
 
   const onSaveNewPatient = (e) => {
     let fiche = `1.Personal Info\n\nnom:${nom}\n`;
@@ -54,8 +56,24 @@ export default function SecReception({ sectionData }) {
     fiche = fiche.concat(`Poids:${poids}\n`);
     fiche = fiche.concat(`temp:${temp}\n`);
 
-    alert(fiche);
+    setFicheData({
+      prenom: prenom,
+      age: age,
+      addresse: addresse,
+      profession: profession,
+      sex: sex,
+      zone: zone,
+      cat: cat,
+      HA: heureArrivee,
+      DA: dateArrivee,
+      poids: poids,
+      temp: temp
+    });
+
+    handleSaveNewPatient(ficheData);
   };
+
+  useEffect(() => {}, [ficheData]);
 
   return (
     <Container>

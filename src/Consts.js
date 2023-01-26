@@ -9,6 +9,10 @@ import reception from "./assets/reception.png";
 import meds from "./assets/meds.png";
 import inf from "./assets/inf.png";
 
+const COLLECTIONS = {
+  PATIENTS: "patients"
+};
+
 const PAGES = {
   LOGIN: "login",
   MAIN_MENU: "mainMenu"
@@ -26,4 +30,4 @@ const MAIN_MENU_ITEMS = [
   { n: "Infirmiers", i: inf }
 ];
 
-export { logo, PAGES, MAIN_MENU_ITEMS };
+export { logo, PAGES, MAIN_MENU_ITEMS, COLLECTIONS };
