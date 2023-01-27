@@ -8,6 +8,7 @@ import rdv from "./assets/rdv.png";
 import reception from "./assets/reception.png";
 import meds from "./assets/meds.png";
 import inf from "./assets/inf.png";
+import lpat from "./assets/inf.png";
 
 const COLLECTIONS = {
   PATIENTS: "patients"
@@ -27,7 +28,12 @@ const MAIN_MENU_ITEMS = [
   { n: "Rendez-vous", i: rdv },
   { n: "Reception", sub: "Enregistrement d'un nouveau patient.", i: reception },
   { n: "Medecins", i: meds },
-  { n: "Infirmiers", i: inf }
+  { n: "Infirmiers", i: inf },
+  {
+    n: "Liste des patients",
+    sub: "Affiche la liste de tous les patients",
+    i: lpat
+  }
 ];
 
 export { logo, PAGES, MAIN_MENU_ITEMS, COLLECTIONS };
