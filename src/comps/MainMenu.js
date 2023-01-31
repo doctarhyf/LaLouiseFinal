@@ -14,6 +14,7 @@ import { useState } from "react";
 import SecPharmacy from "../sections/SecPharmacy";
 import SecReception from "../sections/SecReception";
 import SecPatList from "../sections/SecPatList";
+import SecFinance from "../sections/SecFinance";
 
 export default function MainMenu() {
   const [curSection, setCurSection] = useState("");
@@ -102,6 +103,10 @@ export default function MainMenu() {
         )}
         {curSection.n === "Liste des patients" && (
           <SecPatList sectionData={curSection} />
+        )}
+
+        {curSection.n === "Finance" && (
+          <SecFinance sectionData={curSection} />
         )}
       </Box>
     </Box>

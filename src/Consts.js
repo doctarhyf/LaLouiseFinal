@@ -19,16 +19,18 @@ const PAGES = {
   MAIN_MENU: "mainMenu"
 };
 
+
+
 const MAIN_MENU_ITEMS = [
-  { n: "Acoucheuse", i: acoucheuse },
-  { n: "Finance", i: finance },
-  { n: "Gynecology", i: gynecology },
-  { n: "Labo", i: labo },
-  { n: "Pharmacie", sub: "Check all meds stored", i: pharmacie },
-  { n: "Rendez-vous", i: rdv },
-  { n: "Reception", sub: "Enregistrement d'un nouveau patient.", i: reception },
-  { n: "Medecins", i: meds },
-  { n: "Infirmiers", i: inf },
+  { n: "Acoucheuse", i: acoucheuse, hasInvoice:true },
+  { n: "Finance", i: finance, sub:"This were you manage all finances.", hasInvoice:false },
+  { n: "Gynecology", i: gynecology, hasInvoice:true },
+  { n: "Labo", i: labo, hasInvoice:true },
+  { n: "Pharmacie", sub: "Check all meds stored", i: pharmacie, hasInvoice:true },
+  { n: "Rendez-vous", i: rdv, hasInvoice:false },
+  { n: "Reception", sub: "Enregistrement d'un nouveau patient.", i: reception, hasInvoice:true },
+  { n: "Medecins", i: meds, hasInvoice:false },
+  { n: "Infirmiers", i: inf , hasInvoice:false },
   {
     n: "Liste des patients",
     sub: "Affiche la liste de tous les patients",
@@ -36,4 +38,8 @@ const MAIN_MENU_ITEMS = [
   }
 ];
 
-export { logo, PAGES, MAIN_MENU_ITEMS, COLLECTIONS };
+const STFY = (obj) => {
+  return JSON.stringify(obj);
+}
+
+export { logo, PAGES, MAIN_MENU_ITEMS, COLLECTIONS, STFY };
