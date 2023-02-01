@@ -22,20 +22,16 @@ import {
   Button
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import PropTypes from 'prop-types';
-import { handleSaveData, handleSaveNewMed } from '../handles/handlesSave';
-
+import PropTypes from "prop-types";
+import { handleSaveData, handleSaveNewMed } from "../handles/handlesSave";
+import { getDocs, collection, getFirestore } from "@firebase/firestore";
 import { ArrowRight, Camera, AddIcon } from "@mui/icons-material";
-
+import { db } from "../firebase_setup/firebase";
 import pharmacy from "../assets/pharmacie.jpg";
 import SectionHeader from "../comps/SectionHeader";
-import { MED_FORM, STFY } from '../Consts';
-
-
+import { MED_FORM, STFY, COLLECTIONS } from "../Consts";
 
 function TableMeds({ meds }) {
-
-
   return (
     <>
       <TableContainer sx={{ mt: 2 }} component={Paper}>
@@ -81,75 +77,88 @@ function TableMeds({ meds }) {
   );
 }
 
-
 function DialogAddDrug(props) {
   const { onClose, selectedValue, open, medForm, onMedFormChange } = props;
-  const [nom, setNom] = useState('');
-  const [forme, setForme] = useState('');
-  const [dosage, setDosage] = useState('');
+  const [nom, setNom] = useState("");
+  const [forme, setForme] = useState("");
+  const [dosage, setDosage] = useState("");
   const [quantite, setQuantite] = useState(0);
-  const [meds, setMeds] = useState([])
 
-  const onAddMed = async() => {
-
+  const onAddMed = async () => {
     const newMedData = {
-      nom:nom,
-      forme:forme,
-      dosage:dosage,
-      quantite:quantite
-    }
+      nom: nom,
+      forme: forme,
+      dosage: dosage,
+      quantite: quantite
+    };
 
-    const res = await handleSaveNewMed(newMedData)
-    if(res.code && res.name){ // if an error occured
+    const res = await handleSaveNewMed(newMedData);
+    if (res.code && res.name) {
+      // if an error occured
       alert(`Error : ${res.name}\nCode : ${res.code}`);
-    }else{
-      alert('Med added to database successfuly!')
+    } else {
+      alert("Med added to database successfuly!");
     }
 
     onClose();
-  }
+  };
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  
-
-  useEffect(() => {
-
-  }, [meds])
-  
   return (
-    <Dialog onClose={handleClose} open={open} >
+    <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Ajout Produit</DialogTitle>
-      <Box sx={{ pt: 0, p:2, gap:2, display:'flex', flexDirection:'column' }}>
-        
-          <Typography>No 112</Typography>
-          <TextField label="Nom du produit" value={nom} onChange={e => setNom(e.target.value)} focused />
-          
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Forme</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={forme}
-              label="Forme"
-              onCha
-              onChange={e => setForme(e.target.value)}
-            >
-              { MED_FORM.map((it, idx) => <MenuItem key={idx} value={it}>{it}</MenuItem> ) }
-              
-            </Select>
-          </FormControl>
+      <Box
+        sx={{ pt: 0, p: 2, gap: 2, display: "flex", flexDirection: "column" }}
+      >
+        <Typography>No 112</Typography>
+        <TextField
+          label="Nom du produit"
+          value={nom}
+          onChange={(e) => setNom(e.target.value)}
+          focused
+        />
 
-          <TextField placeholder={"200 mg/5ml"} label="Dosage"  value={dosage} onChange={ e => setDosage(e.target.value) }  focused />
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Forme</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={forme}
+            label="Forme"
+            onCha
+            onChange={(e) => setForme(e.target.value)}
+          >
+            {MED_FORM.map((it, idx) => (
+              <MenuItem key={idx} value={it}>
+                {it}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-          <TextField type={'number'} label="Quantite" value={quantite} onChange={ e => setQuantite(e.target.value) } focused />
+        <TextField
+          placeholder={"200 mg/5ml"}
+          label="Dosage"
+          value={dosage}
+          onChange={(e) => setDosage(e.target.value)}
+          focused
+        />
 
-          <Button onClick={onAddMed} >CONFIRMER</Button>
-          <Button onClick={onClose} variant='contained' color='error' >ANNULER</Button>
+        <TextField
+          type={"number"}
+          label="Quantite"
+          value={quantite}
+          onChange={(e) => setQuantite(e.target.value)}
+          focused
+        />
 
-        
+        <Button onClick={onAddMed}>CONFIRMER</Button>
+        <Button onClick={onClose} variant="contained" color="error">
+          ANNULER
+        </Button>
       </Box>
     </Dialog>
   );
@@ -158,18 +167,34 @@ function DialogAddDrug(props) {
 DialogAddDrug.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
+  selectedValue: PropTypes.string.isRequired
 };
 
 export default function SecPharmacy({ sectionData }) {
   const [showOnlyNotEnStock, setShowOnlyNotEnStock] = useState(false);
   const [open, setOpen] = useState(false);
-  //const [selectedValue, setSelectedValue] = useState(emails[1]);
-  const [medForm, setMedForm] = useState('')
-  
+  const [medForm, setMedForm] = useState("");
+  const [meds, setMeds] = useState([]);
+
+  const fetchMeds = async () => {
+    await getDocs(collection(db, COLLECTIONS.MEDS)).then((querySnapshot) => {
+      const newData = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }));
+
+      setMeds(newData);
+      //alert(todos, newData);
+    });
+  };
+
+  useEffect(() => {
+    fetchMeds();
+  }, [meds]);
+
   const onMedFormChange = (e) => {
     setMedForm(e.target.value);
-  }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -186,7 +211,7 @@ export default function SecPharmacy({ sectionData }) {
   };
 
   const onAjoutInventaire = (e) => {
-    handleClickOpen(e)
+    handleClickOpen(e);
   };
 
   return (
@@ -197,9 +222,16 @@ export default function SecPharmacy({ sectionData }) {
       <Box sx={{ py: 2, display: "flex", flexDirection: "row", gap: 2 }}>
         <Chip
           onClick={onAjoutInventaire}
-          label="AJOUT NOUVEAU PRODUIT"
-          color="secondary"
+          label="ENTREE"
+          color="success"
           avatar={<Avatar>+</Avatar>}
+        />
+
+        <Chip
+          onClick={undefined}
+          label="SORTIE"
+          color="error"
+          avatar={<Avatar>-</Avatar>}
         />
 
         <Chip
@@ -210,17 +242,15 @@ export default function SecPharmacy({ sectionData }) {
           variant={showOnlyNotEnStock === true ? "outlined" : "filled"}
         />
 
-        <DialogAddDrug 
-          
+        <DialogAddDrug
           medForm={medForm}
-          onMedFormChange = {onMedFormChange}
+          onMedFormChange={onMedFormChange}
           open={open}
           onClose={handleClose}
         />
-
       </Box>
       <Divider />
-      <TableMeds meds={[]} />
+      <TableMeds meds={meds} />
     </Container>
   );
 }
