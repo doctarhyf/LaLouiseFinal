@@ -38,8 +38,18 @@ const MAIN_MENU_ITEMS = [
   }
 ];
 
+const MED_FORM = [
+  'Solution Buvale',
+  'Comprime',
+  'Sirop',
+  'Injectable',
+  'Perfusion',
+  'Suspense',
+  
+]
+
 const STFY = (obj) => {
   return JSON.stringify(obj);
 }
 
-export { logo, PAGES, MAIN_MENU_ITEMS, COLLECTIONS, STFY };
+export { logo, PAGES, MAIN_MENU_ITEMS, COLLECTIONS, STFY, MED_FORM };
