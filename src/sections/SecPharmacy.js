@@ -21,7 +21,7 @@ import {
   MenuItem,
   Button
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { handleSaveData, handleSaveNewMed } from '../handles/handlesSave';
 
@@ -31,14 +31,10 @@ import pharmacy from "../assets/pharmacie.jpg";
 import SectionHeader from "../comps/SectionHeader";
 import { MED_FORM, STFY } from '../Consts';
 
-let m = [];
 
-for (let i = 0; i < 10; i++) {
-  m.push({ id: i, n: "medicame " + i });
-}
 
 function TableMeds({ meds }) {
-  meds = m;
+
 
   return (
     <>
@@ -47,8 +43,10 @@ function TableMeds({ meds }) {
           <TableHead>
             <TableRow>
               <TableCell>NUM.</TableCell>
-              <TableCell>Designation</TableCell>
-              <TableCell>En Stock</TableCell>
+              <TableCell>Nom</TableCell>
+              <TableCell>Forme</TableCell>
+              <TableCell>Dosage</TableCell>
+              <TableCell>Quantite</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -60,8 +58,10 @@ function TableMeds({ meds }) {
                 <TableCell component="th" scope="row">
                   {med.id}
                 </TableCell>
-                <TableCell>{med.n}</TableCell>
-                <TableCell>{med.id}</TableCell>
+                <TableCell>{med.nom}</TableCell>
+                <TableCell>{med.forme}</TableCell>
+                <TableCell>{med.dosage}</TableCell>
+                <TableCell>{med.quantite}</TableCell>
               </TableRow>
             ))}
 
@@ -69,6 +69,8 @@ function TableMeds({ meds }) {
               <TableCell component="th" scope="row">
                 TOTAL ({meds.length} )
               </TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -86,6 +88,7 @@ function DialogAddDrug(props) {
   const [forme, setForme] = useState('');
   const [dosage, setDosage] = useState('');
   const [quantite, setQuantite] = useState(0);
+  const [meds, setMeds] = useState([])
 
   const onAddMed = async() => {
 
@@ -111,12 +114,15 @@ function DialogAddDrug(props) {
   };
 
   
+
+  useEffect(() => {
+
+  }, [meds])
+  
   return (
     <Dialog onClose={handleClose} open={open} >
       <DialogTitle>Ajout Produit</DialogTitle>
       <Box sx={{ pt: 0, p:2, gap:2, display:'flex', flexDirection:'column' }}>
-        
-          
         
           <Typography>No 112</Typography>
           <TextField label="Nom du produit" value={nom} onChange={e => setNom(e.target.value)} focused />
