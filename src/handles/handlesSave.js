@@ -21,11 +21,13 @@ const handleSaveNewMed = async (newMedData) => {
 
   try {
     const res = await addDoc(ref, newMedData);
-    alert(`adding new med : ${JSON.stringify(ref)}`);
-    alert(`Res: ${res}`);
+    //alert(`adding new med : ${JSON.stringify(ref)}`);
+    //alert(`Res: ${res}`);
+    return res;
   } catch (err) {
     console.log(err);
-    alert(err);
+    //alert(err);
+    return err;
   }
 };
 

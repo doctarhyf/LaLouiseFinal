@@ -29,7 +29,7 @@ import { ArrowRight, Camera, AddIcon } from "@mui/icons-material";
 
 import pharmacy from "../assets/pharmacie.jpg";
 import SectionHeader from "../comps/SectionHeader";
-import { MED_FORM } from '../Consts';
+import { MED_FORM, STFY } from '../Consts';
 
 let m = [];
 
@@ -82,10 +82,28 @@ function TableMeds({ meds }) {
 
 function DialogAddDrug(props) {
   const { onClose, selectedValue, open, medForm, onMedFormChange } = props;
+  const [nom, setNom] = useState('');
+  const [forme, setForme] = useState('');
+  const [dosage, setDosage] = useState('');
+  const [quantite, setQuantite] = useState(0);
 
   const onAddMed = async() => {
-    //alert('onAddMed');
-    handleSaveNewMed({cool:'cool - nous sommes '})
+
+    const newMedData = {
+      nom:nom,
+      forme:forme,
+      dosage:dosage,
+      quantite:quantite
+    }
+
+    const res = await handleSaveNewMed(newMedData)
+    if(res.code && res.name){ // if an error occured
+      alert(`Error : ${res.name}\nCode : ${res.code}`);
+    }else{
+      alert('Med added to database successfuly!')
+    }
+
+    onClose();
   }
 
   const handleClose = () => {
@@ -101,27 +119,29 @@ function DialogAddDrug(props) {
           
         
           <Typography>No 112</Typography>
-          <TextField label="Nom du produit" focused />
+          <TextField label="Nom du produit" value={nom} onChange={e => setNom(e.target.value)} focused />
           
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Forme</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={medForm}
+              value={forme}
               label="Forme"
-              onChange={onMedFormChange}
+              onCha
+              onChange={e => setForme(e.target.value)}
             >
               { MED_FORM.map((it, idx) => <MenuItem key={idx} value={it}>{it}</MenuItem> ) }
               
             </Select>
           </FormControl>
 
-          <TextField placeholder={"200 mg/5ml"} label="Dosage"  focused />
+          <TextField placeholder={"200 mg/5ml"} label="Dosage"  value={dosage} onChange={ e => setDosage(e.target.value) }  focused />
 
-          <TextField type={'number'} label="Quantite"  focused />
+          <TextField type={'number'} label="Quantite" value={quantite} onChange={ e => setQuantite(e.target.value) } focused />
 
           <Button onClick={onAddMed} >CONFIRMER</Button>
+          <Button onClick={onClose} variant='contained' color='error' >ANNULER</Button>
 
         
       </Box>
@@ -149,7 +169,7 @@ export default function SecPharmacy({ sectionData }) {
     setOpen(true);
   };
 
-  const handleClose = (value) => {
+  const handleClose = () => {
     setOpen(false);
     //setSelectedValue(value);
   };

@@ -23,7 +23,7 @@ import { ArrowRight, Camera, AddIcon } from "@mui/icons-material";
 import pharmacy from "../assets/pharmacie.jpg";
 import SectionHeader from "../comps/SectionHeader";
 import { useState, useEffect } from "react";
-import handleSaveNewPatient from "../handles/handleSaveNewPatient";
+import { handleSaveNewPatient } from "../handles/handlesSave";
 
 export default function SecReception({ sectionData }) {
   const [age, setAge] = useState(30);
