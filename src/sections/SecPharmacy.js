@@ -23,6 +23,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import PropTypes from 'prop-types';
+import { handleSaveData, handleSaveNewMed } from '../handles/handlesSave';
 
 import { ArrowRight, Camera, AddIcon } from "@mui/icons-material";
 
@@ -82,8 +83,9 @@ function TableMeds({ meds }) {
 function DialogAddDrug(props) {
   const { onClose, selectedValue, open, medForm, onMedFormChange } = props;
 
-  const onAddMed = () => {
-    alert('onAddMed')
+  const onAddMed = async() => {
+    //alert('onAddMed');
+    handleSaveNewMed({cool:'cool - nous sommes '})
   }
 
   const handleClose = () => {
@@ -116,6 +118,8 @@ function DialogAddDrug(props) {
           </FormControl>
 
           <TextField placeholder={"200 mg/5ml"} label="Dosage"  focused />
+
+          <TextField type={'number'} label="Quantite"  focused />
 
           <Button onClick={onAddMed} >CONFIRMER</Button>
 

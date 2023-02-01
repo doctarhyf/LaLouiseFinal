@@ -14,4 +14,22 @@ const handleSaveNewPatient = async (patientData) => {
     alert(err);
   }
 };
-export default handleSaveNewPatient;
+
+
+const handleSaveNewMed = async (newMedData) => {
+  const ref = collection(firestore, COLLECTIONS.MEDS); // Firebase creates this automatically
+
+  try {
+    const res = await addDoc(ref, newMedData);
+    alert(`adding new med : ${JSON.stringify(ref)}`);
+    alert(`Res: ${res}`);
+  } catch (err) {
+    console.log(err);
+    alert(err);
+  }
+};
+
+
+export {
+  handleSaveNewPatient, handleSaveNewMed
+} 

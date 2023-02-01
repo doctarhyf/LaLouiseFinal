@@ -11,7 +11,8 @@ import inf from "./assets/inf.png";
 import lpat from "./assets/inf.png";
 
 const COLLECTIONS = {
-  PATIENTS: "patients"
+  PATIENTS: "patients",
+  MEDS: "meds"
 };
 
 const PAGES = {
