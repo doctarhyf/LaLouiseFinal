@@ -27,6 +27,14 @@ export default function MainMenu() {
     setCurSection("");
   };
 
+  const showListePatients = (e) => {
+    showSection("Liste des patients");
+  };
+
+  const showReception = (e) => {
+    showSection("Reception");
+  };
+
   const showSection = (pg) => {
     let cpg = undefined;
 
@@ -83,7 +91,8 @@ export default function MainMenu() {
 
         {MAIN_MENU_ITEMS.map(
           (it, idx) =>
-            curSection === "" && (
+            curSection === "" &&
+            it.visible && (
               <MainMenuItem
                 onMenuItemClicked={onMenuItemClicked}
                 icon={it.i}
@@ -99,15 +108,16 @@ export default function MainMenu() {
           />
         )}
         {curSection.n === "Reception" && (
-          <SecReception sectionData={curSection} />
+          <SecReception
+            sectionData={curSection}
+            showListePatients={showListePatients}
+          />
         )}
         {curSection.n === "Liste des patients" && (
-          <SecPatList sectionData={curSection} />
+          <SecPatList sectionData={curSection} showReception={showReception} />
         )}
 
-        {curSection.n === "Finance" && (
-          <SecFinance sectionData={curSection} />
-        )}
+        {curSection.n === "Finance" && <SecFinance sectionData={curSection} />}
       </Box>
     </Box>
   );

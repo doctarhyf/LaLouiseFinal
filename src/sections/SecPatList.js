@@ -56,18 +56,7 @@ const patl = [
   }
 ];
 
-export default function SecPharmacy({ sectionData }) {
-  const [showOnlyNotEnStock, setShowOnlyNotEnStock] = useState(false);
-
-  const handleShowOnlyNotEnStock = () => {
-    setShowOnlyNotEnStock(!showOnlyNotEnStock);
-    alert(showOnlyNotEnStock);
-  };
-
-  const onAjoutInventaire = (e) => {
-    alert("onAjoutInventaire ...");
-  };
-
+export default function SecPharmacy({ sectionData, showReception }) {
   return (
     <Container>
       <SectionHeader data={sectionData} />
@@ -75,18 +64,14 @@ export default function SecPharmacy({ sectionData }) {
 
       <Box sx={{ py: 2, display: "flex", flexDirection: "row", gap: 2 }}>
         <Chip
-          onClick={onAjoutInventaire}
-          label="AJOUT ARRIVAGE"
+          onClick={showReception}
+          label="RECEPTION"
           color="secondary"
-          avatar={<Avatar>+</Avatar>}
-        />
-
-        <Chip
-          className="pointer"
-          onClick={handleShowOnlyNotEnStock}
-          label="VOIR MANQUE EN STOCK"
-          color="primary"
-          variant={showOnlyNotEnStock === true ? "outlined" : "filled"}
+          avatar={
+            <Avatar>
+              <WorkIcon />
+            </Avatar>
+          }
         />
       </Box>
       <Divider />

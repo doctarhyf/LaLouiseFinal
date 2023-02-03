@@ -15,7 +15,10 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormControl
+  FormControl,
+  FormGroup,
+  FormControlLabel,
+  Switch
 } from "@mui/material";
 
 import { ArrowRight, Camera, AddIcon } from "@mui/icons-material";
@@ -25,7 +28,7 @@ import SectionHeader from "../comps/SectionHeader";
 import { useState, useEffect } from "react";
 import { handleSaveNewPatient } from "../handles/handlesSave";
 
-export default function SecReception({ sectionData }) {
+export default function SecReception({ sectionData, showListePatients }) {
   const [age, setAge] = useState(30);
   const [etatCivil, setEtatCivil] = useState("marie");
   const [sex, setSex] = useState("m");
@@ -40,11 +43,14 @@ export default function SecReception({ sectionData }) {
   const [poids, setPoids] = useState(0);
   const [temp, setTemp] = useState(0);
   const [ficheData, setFicheData] = useState({});
+  const [patientsList, showPatientsList] = useState(false);
+  const [phone, setPhone] = useState("+243");
 
   const onSaveNewPatient = (e) => {
     let fiche = `1.Personal Info\n\nnom:${nom}\n`;
     fiche = fiche.concat(`prenom:${prenom}\n`);
     fiche = fiche.concat(`age:${age}\n`);
+    fiche = fiche.concat(`phone:${phone}`);
     fiche = fiche.concat(`addresse:${addresse}\n`);
     fiche = fiche.concat(`profession:${profession}\n`);
     fiche = fiche.concat(`sex:${sex}\n`);
@@ -76,169 +82,189 @@ export default function SecReception({ sectionData }) {
   useEffect(() => {}, [ficheData]);
 
   return (
-    <Container>
-      <SectionHeader data={sectionData} />
-      <Divider />
-      <Typography variant="h4" sx={{ my: 2, textAlign: "center" }}>
-        FICHE DE CONSULTATION
-      </Typography>
-      <Divider />
+    <Box sx={{ disply: "flex", flexDirection: "column" }}>
+      <Container>
+        <SectionHeader data={sectionData} />
+        <Divider />
 
-      <Typography variant="h6" sx={{ my: 2 }}>
-        1. PERSONAL INFO
-      </Typography>
+        <Typography variant="h4" sx={{ my: 2, textAlign: "center" }}>
+          FICHE DE CONSULTATION
+        </Typography>
 
-      <Box
-        sx={{
-          py: 2,
-          gap: 2,
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap"
-        }}
-      >
-        <TextField
-          value={nom}
-          onChange={(e) => setNom(e.target.value)}
-          sx={{ width: 1 / 4 }}
-          label={"Nom"}
-        />
-        <TextField
-          value={prenom}
-          onChange={(e) => setPrenom(e.target.value)}
-          sx={{ width: 1 / 3 }}
-          label={"Prenom"}
-        />
+        <Button variant="contained" onClick={showListePatients}>
+          LISTE DES PATIENTS
+        </Button>
 
-        <TextField
-          type="number"
-          defaultValue="10"
-          sx={{ width: 1 / 3 }}
-          label={"Age"}
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-        />
+        <Divider />
 
-        <TextField
-          value={addresse}
-          onChange={(e) => setAddresse(e.target.value)}
-          label={"Adresse"}
-        />
-        <FormControl sx={{ width: 1 / 3.6 }}>
-          <InputLabel id="demo-simple-select-label">Etat-Civil</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={etatCivil}
-            label="Etat-Civil"
-            onChange={(e) => setEtatCivil(e.target.value)}
-          >
-            <MenuItem value={"marie"}>Marie</MenuItem>
-            <MenuItem value={"celib"}>Celibataire</MenuItem>
-          </Select>
-        </FormControl>
+        <Typography variant="h6" sx={{ my: 2 }}>
+          1. PERSONAL INFO
+        </Typography>
 
-        <FormControl sx={{ width: 1 / 3 }}>
-          <InputLabel id="demo-simple-select-label">Sex</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={sex}
-            label="Age"
-            onChange={(e) => setSex(e.target.value)}
-          >
-            <MenuItem value={"m"}>M</MenuItem>
-            <MenuItem value={"f"}>F</MenuItem>
-          </Select>
-        </FormControl>
+        <Box
+          sx={{
+            py: 2,
+            gap: 2,
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap"
+          }}
+        >
+          <TextField
+            value={nom}
+            onChange={(e) => setNom(e.target.value)}
+            sx={{ width: 1 / 4 }}
+            label={"Nom"}
+          />
+          <TextField
+            value={prenom}
+            onChange={(e) => setPrenom(e.target.value)}
+            sx={{ width: 1 / 3 }}
+            label={"Prenom"}
+          />
 
-        <TextField
-          value={profession}
-          onChange={(e) => setProfession(e.target.value)}
-          label={"Profession"}
-        />
+          <TextField
+            type="number"
+            defaultValue="10"
+            sx={{ width: 1 / 3 }}
+            label={"Age"}
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+          />
 
-        <FormControl sx={{ width: 1 / 3.6 }}>
-          <InputLabel id="demo-simple-select-label">Categorie</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={cat}
-            label="Etat-Civil"
-            onChange={(e) => setCat(e.target.value)}
-          >
-            <MenuItem value={"a"}>a</MenuItem>
-            <MenuItem value={"b"}>b</MenuItem>
-          </Select>
-        </FormControl>
+          <TextField
+            sx={{ width: 0.98 }}
+            label={"Phone"}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
 
-        <FormControl sx={{ width: 1 / 3 }}>
-          <InputLabel id="demo-simple-select-label">Zone</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={zone}
-            label="Etat-Civil"
-            onChange={(e) => setZone(e.target.value)}
-          >
-            <MenuItem value={"AS"}>AS</MenuItem>
-            <MenuItem value={"HA"}>HA</MenuItem>
-            <MenuItem value={"Hors Zone"}>Hors Zone</MenuItem>
-          </Select>
-        </FormControl>
+          <TextField
+            value={addresse}
+            onChange={(e) => setAddresse(e.target.value)}
+            label={"Adresse"}
+          />
+          <FormControl sx={{ width: 1 / 3.6 }}>
+            <InputLabel id="demo-simple-select-label">Etat-Civil</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={etatCivil}
+              label="Etat-Civil"
+              onChange={(e) => setEtatCivil(e.target.value)}
+            >
+              <MenuItem value={"marie"}>Marie</MenuItem>
+              <MenuItem value={"celib"}>Celibataire</MenuItem>
+            </Select>
+          </FormControl>
 
-        <TextField
-          type="time"
-          value={heureArrivee}
-          onChange={(e) => setHeureArrivee(e.target.value)}
-          label={"HEURE D'ARRIVEE"}
-          sx={{ width: 1 / 2 }}
-        />
-        <TextField
-          type="date"
-          value={dateArrivee}
-          onChange={(e) => setDateArrivee(e.target.value)}
-          label={"Date D'ARRIVEE"}
-          sx={{ width: 1 / 2.2 }}
-        />
-      </Box>
+          <FormControl sx={{ width: 1 / 3 }}>
+            <InputLabel id="demo-simple-select-label">Sex</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={sex}
+              label="Age"
+              onChange={(e) => setSex(e.target.value)}
+            >
+              <MenuItem value={"m"}>M</MenuItem>
+              <MenuItem value={"f"}>F</MenuItem>
+            </Select>
+          </FormControl>
 
-      <Typography variant="h6" sx={{ my: 2 }}>
-        2. VACCINS
-      </Typography>
+          <TextField
+            value={profession}
+            onChange={(e) => setProfession(e.target.value)}
+            label={"Profession"}
+          />
 
-      <Typography variant="h6" sx={{ my: 2 }}>
-        3. ANTECEDANTS
-      </Typography>
+          <FormControl sx={{ width: 1 / 3.6 }}>
+            <InputLabel id="demo-simple-select-label">Categorie</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={cat}
+              label="Etat-Civil"
+              onChange={(e) => setCat(e.target.value)}
+            >
+              <MenuItem value={"a"}>a</MenuItem>
+              <MenuItem value={"b"}>b</MenuItem>
+            </Select>
+          </FormControl>
 
-      <Box
-        sx={{ display: "flex", flexDirection: "row", gap: 2, flexWrap: "wrap" }}
-      >
-        <TextField type="date" label={"Date"} sx={{ width: 1 / 2.2 }} />
-        <TextField
-          value={poids}
-          onChange={(e) => setPoids(e.target.value)}
-          type="number"
-          label={"Poids"}
-          sx={{ width: 1 / 2 }}
-        />
-        <TextField
-          value={temp}
-          onChange={(e) => setTemp(e.target.value)}
-          type="number"
-          label={"Temperature"}
-          sx={{ width: 1 / 2.2 }}
-        />
-        <TextField label={"T.A/T.P"} sx={{ width: 1 / 2 }} />
-      </Box>
+          <FormControl sx={{ width: 1 / 3 }}>
+            <InputLabel id="demo-simple-select-label">Zone</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={zone}
+              label="Etat-Civil"
+              onChange={(e) => setZone(e.target.value)}
+            >
+              <MenuItem value={"AS"}>AS</MenuItem>
+              <MenuItem value={"HA"}>HA</MenuItem>
+              <MenuItem value={"Hors Zone"}>Hors Zone</MenuItem>
+            </Select>
+          </FormControl>
 
-      <Button
-        onClick={onSaveNewPatient}
-        sx={{ my: 2, width: 1 }}
-        variant="contained"
-      >
-        ENREGISTRER PATIENT
-      </Button>
-    </Container>
+          <TextField
+            type="time"
+            value={heureArrivee}
+            onChange={(e) => setHeureArrivee(e.target.value)}
+            label={"HEURE D'ARRIVEE"}
+            sx={{ width: 1 / 2 }}
+          />
+          <TextField
+            type="date"
+            value={dateArrivee}
+            onChange={(e) => setDateArrivee(e.target.value)}
+            label={"Date D'ARRIVEE"}
+            sx={{ width: 1 / 2.2 }}
+          />
+        </Box>
+
+        <Typography variant="h6" sx={{ my: 2 }}>
+          2. VACCINS
+        </Typography>
+
+        <Typography variant="h6" sx={{ my: 2 }}>
+          3. ANTECEDANTS
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 2,
+            flexWrap: "wrap"
+          }}
+        >
+          <TextField type="date" label={"Date"} sx={{ width: 1 / 2.2 }} />
+          <TextField
+            value={poids}
+            onChange={(e) => setPoids(e.target.value)}
+            type="number"
+            label={"Poids"}
+            sx={{ width: 1 / 2 }}
+          />
+          <TextField
+            value={temp}
+            onChange={(e) => setTemp(e.target.value)}
+            type="number"
+            label={"Temperature"}
+            sx={{ width: 1 / 2.2 }}
+          />
+          <TextField label={"T.A/T.P"} sx={{ width: 1 / 2 }} />
+        </Box>
+
+        <Button
+          onClick={onSaveNewPatient}
+          sx={{ my: 2, width: 1 }}
+          variant="contained"
+        >
+          ENREGISTRER PATIENT
+        </Button>
+      </Container>
+    </Box>
   );
 }
