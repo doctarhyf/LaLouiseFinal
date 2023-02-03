@@ -22,7 +22,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ImageIcon from "@mui/icons-material/Image";
 import WorkIcon from "@mui/icons-material/Work";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
-import { ArrowRight, Camera, AddIcon } from "@mui/icons-material";
+import { ArrowRight, Camera, AddIcon, Home } from "@mui/icons-material";
 
 import pharmacy from "../assets/pharmacie.jpg";
 import SectionHeader from "../comps/SectionHeader";
@@ -69,7 +69,7 @@ export default function SecPharmacy({ sectionData, showReception }) {
           color="secondary"
           avatar={
             <Avatar>
-              <WorkIcon />
+              <Home />
             </Avatar>
           }
         />

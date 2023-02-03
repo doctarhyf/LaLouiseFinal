@@ -16,6 +16,20 @@ body {
   border-radius: 1em;
 }
 
+.med-row {
+  cursor: pointer;
+}
+
+.med-row:hover {
+  color: red;
+}
+
+.med-row:hover * {
+  color: white;
+  font-weight: bold;
+  background-color: black;
+}
+
 .pointer {
   cursor: pointer;
 }

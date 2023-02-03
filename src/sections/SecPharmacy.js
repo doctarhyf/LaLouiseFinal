@@ -30,8 +30,9 @@ import { db } from "../firebase_setup/firebase";
 import pharmacy from "../assets/pharmacie.jpg";
 import SectionHeader from "../comps/SectionHeader";
 import { MED_FORM, STFY, COLLECTIONS } from "../Consts";
+import "../styles.css";
 
-function TableMeds({ meds }) {
+function TableMeds({ meds, onMedClick }) {
   return (
     <>
       <TableContainer sx={{ mt: 2 }} component={Paper}>
@@ -43,21 +44,25 @@ function TableMeds({ meds }) {
               <TableCell>Forme</TableCell>
               <TableCell>Dosage</TableCell>
               <TableCell>Quantite</TableCell>
+              <TableCell>Prix</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {meds.map((med) => (
+            {meds.map((med, idx) => (
               <TableRow
+                className="med-row"
+                onClick={(e) => onMedClick(med, idx)}
                 key={med.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {med.id}
+                  {idx + 1}
                 </TableCell>
                 <TableCell>{med.nom}</TableCell>
                 <TableCell>{med.forme}</TableCell>
                 <TableCell>{med.dosage}</TableCell>
                 <TableCell>{med.quantite}</TableCell>
+                <TableCell>{med.prix}</TableCell>
               </TableRow>
             ))}
 
@@ -83,6 +88,7 @@ function DialogAddDrug(props) {
   const [forme, setForme] = useState("");
   const [dosage, setDosage] = useState("");
   const [quantite, setQuantite] = useState(0);
+  const [price, setPrice] = useState(0);
 
   const onAddMed = async () => {
     const newMedData = {
@@ -108,8 +114,8 @@ function DialogAddDrug(props) {
   };
 
   return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Ajout Produit</DialogTitle>
+    <Dialog onClose={handleClose} open={open} fullWidth={true}>
+      <DialogTitle>{props.dialType}</DialogTitle>
       <Box
         sx={{ pt: 0, p: 2, gap: 2, display: "flex", flexDirection: "column" }}
       >
@@ -155,6 +161,32 @@ function DialogAddDrug(props) {
           focused
         />
 
+        <TextField
+          sx={{
+            width: 1,
+            display: "none",
+            ...(props.dialType === DRUG_DIALOG.ENTREE && {
+              display: "block"
+            })
+          }}
+          type={"number"}
+          label="Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          focused
+        />
+
+        {props.dialType === DRUG_DIALOG.SORTIE && (
+          <Typography>{price}</Typography>
+        )}
+
+        {props.dialType === DRUG_DIALOG.SORTIE && (
+          <>
+            <Divider /> Total Price : {quantite * price} FC
+            <Divider />
+          </>
+        )}
+
         <Button onClick={onAddMed}>CONFIRMER</Button>
         <Button onClick={onClose} variant="contained" color="error">
           ANNULER
@@ -170,11 +202,18 @@ DialogAddDrug.propTypes = {
   selectedValue: PropTypes.string.isRequired
 };
 
+const DRUG_DIALOG = {
+  ENTREE: "ENTREE STOCK",
+  SORTIE: "SORTIE STOCK"
+};
+
 export default function SecPharmacy({ sectionData }) {
   const [showOnlyNotEnStock, setShowOnlyNotEnStock] = useState(false);
   const [open, setOpen] = useState(false);
   const [medForm, setMedForm] = useState("");
   const [meds, setMeds] = useState([]);
+  const [drugDialogType, setDrugDialogType] = useState(DRUG_DIALOG.ENTREE);
+  const [curMed, setCurMed] = useState();
 
   const fetchMeds = async () => {
     await getDocs(collection(db, COLLECTIONS.MEDS)).then((querySnapshot) => {
@@ -210,8 +249,14 @@ export default function SecPharmacy({ sectionData }) {
     alert(showOnlyNotEnStock);
   };
 
-  const onAjoutInventaire = (e) => {
-    handleClickOpen(e);
+  const onAjoutInventaire = (dialType) => {
+    setDrugDialogType(dialType);
+    handleClickOpen();
+  };
+
+  const onMedClick = (med, idx) => {
+    setCurMed(med);
+    onAjoutInventaire(DRUG_DIALOG.SORTIE);
   };
 
   return (
@@ -221,17 +266,10 @@ export default function SecPharmacy({ sectionData }) {
 
       <Box sx={{ py: 2, display: "flex", flexDirection: "row", gap: 2 }}>
         <Chip
-          onClick={onAjoutInventaire}
+          onClick={(e) => onAjoutInventaire(DRUG_DIALOG.ENTREE)}
           label="ENTREE"
           color="success"
           avatar={<Avatar>+</Avatar>}
-        />
-
-        <Chip
-          onClick={undefined}
-          label="SORTIE"
-          color="error"
-          avatar={<Avatar>-</Avatar>}
         />
 
         <Chip
@@ -243,14 +281,16 @@ export default function SecPharmacy({ sectionData }) {
         />
 
         <DialogAddDrug
+          curMed={curMed}
           medForm={medForm}
           onMedFormChange={onMedFormChange}
           open={open}
           onClose={handleClose}
+          dialType={drugDialogType}
         />
       </Box>
       <Divider />
-      <TableMeds meds={meds} />
+      <TableMeds meds={meds} onMedClick={onMedClick} />
     </Container>
   );
 }

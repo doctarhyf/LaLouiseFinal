@@ -8,6 +8,7 @@ import {
   Grid,
   Paper
 } from "@mui/material";
+import { Home } from "@mui/icons-material";
 import { MAIN_MENU_ITEMS } from "../Consts";
 import MainMenuItem from "./MainMenuItem";
 import { useState } from "react";
@@ -87,7 +88,12 @@ export default function MainMenu() {
           flexWrap: "wrap"
         }}
       >
-        {curSection !== "" && <Button onClick={gotoMainMenu}>MAIN MENU</Button>}
+        {curSection !== "" && (
+          <Button onClick={gotoMainMenu}>
+            <Home />
+            HOME
+          </Button>
+        )}
 
         {MAIN_MENU_ITEMS.map(
           (it, idx) =>
