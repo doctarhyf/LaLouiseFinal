@@ -214,8 +214,10 @@ export default function SecPharmacy({ sectionData }) {
   const [meds, setMeds] = useState([]);
   const [drugDialogType, setDrugDialogType] = useState(DRUG_DIALOG.ENTREE);
   const [curMed, setCurMed] = useState();
+  const [loading, setLoading] = useState(false);
 
   const fetchMeds = async () => {
+    setLoading(true);
     await getDocs(collection(db, COLLECTIONS.MEDS)).then((querySnapshot) => {
       const newData = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
@@ -223,13 +225,13 @@ export default function SecPharmacy({ sectionData }) {
       }));
 
       setMeds(newData);
-      //alert(todos, newData);
+      setLoading(false);
     });
   };
 
   useEffect(() => {
     fetchMeds();
-  }, [meds]);
+  }, []);
 
   const onMedFormChange = (e) => {
     setMedForm(e.target.value);
@@ -290,6 +292,11 @@ export default function SecPharmacy({ sectionData }) {
         />
       </Box>
       <Divider />
+      {loading && (
+        <Typography>
+          <progress /> Loading ...
+        </Typography>
+      )}
       <TableMeds meds={meds} onMedClick={onMedClick} />
     </Container>
   );

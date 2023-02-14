@@ -27,7 +27,8 @@ const MAIN_MENU_ITEMS = [
     i: finance,
     sub: "This were you manage all finances.",
     hasInvoice: false,
-    visible: true
+    visible: true,
+    facture: ["fact1", "fact2", "fact3"]
   },
   { n: "Gynecology", i: gynecology, hasInvoice: true, visible: false },
   { n: "Labo", i: labo, hasInvoice: true, visible: false },
