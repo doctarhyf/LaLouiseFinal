@@ -20,9 +20,23 @@ const PAGES = {
   MAIN_MENU: "mainMenu"
 };
 
+const FACTURES = {
+  acc: ["Reception", "Bon de traitement", "Soins nouveau ne"],
+  gyn: ["Premier Soin", "Traitement"],
+  pha: ["Sortie Medicaments"],
+  rec: ["Fiche de consultation"]
+};
+
 const MAIN_MENU_ITEMS = [
-  { n: "Acoucheuse", i: acoucheuse, hasInvoice: true, visible: false },
   {
+    code: "acc",
+    n: "Acoucheuse",
+    i: acoucheuse,
+    hasInvoice: true,
+    visible: false
+  },
+  {
+    code: "fin",
     n: "Finance",
     i: finance,
     sub: "This were you manage all finances.",
@@ -30,26 +44,35 @@ const MAIN_MENU_ITEMS = [
     visible: true,
     facture: ["fact1", "fact2", "fact3"]
   },
-  { n: "Gynecology", i: gynecology, hasInvoice: true, visible: false },
-  { n: "Labo", i: labo, hasInvoice: true, visible: false },
   {
+    code: "gyn",
+    n: "Gynecology",
+    i: gynecology,
+    hasInvoice: true,
+    visible: false
+  },
+  { code: "lab", n: "Labo", i: labo, hasInvoice: true, visible: false },
+  {
+    code: "pha",
     n: "Pharmacie",
     sub: "Check all meds stored",
     i: pharmacie,
     hasInvoice: true,
     visible: true
   },
-  { n: "Rendez-vous", i: rdv, hasInvoice: false, visible: true },
+  { code: "rdv", n: "Rendez-vous", i: rdv, hasInvoice: false, visible: true },
   {
+    code: "rec",
     n: "Reception",
     sub: "Enregistrement d'un nouveau patient.",
     i: reception,
     hasInvoice: true,
     visible: true
   },
-  { n: "Medecins", i: meds, hasInvoice: false, visible: true },
-  { n: "Infirmiers", i: inf, hasInvoice: false, visible: true },
+  { code: "med", n: "Medecins", i: meds, hasInvoice: false, visible: true },
+  { code: "inf", n: "Infirmiers", i: inf, hasInvoice: false, visible: true },
   {
+    code: "pat",
     n: "Liste des patients",
     sub: "Affiche la liste de tous les patients",
     i: lpat,

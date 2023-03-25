@@ -11,18 +11,21 @@ import {
 } from "@mui/material";
 import SectionHeader from "../comps/SectionHeader";
 import { useState } from "react";
-import { STFY, MAIN_MENU_ITEMS } from "../Consts";
+import { STFY, MAIN_MENU_ITEMS, FACTURES as FACTURES_LIST } from "../Consts";
 
 export default function SecFinance({ sectionData }) {
   const [dep, setDep] = useState("");
   const [curDep, setCurDep] = useState({});
-  const [facture, setFacture] = useState("");
+  const [facture, setFacture] = useState({});
 
   const onSetDep = (val) => {
     setDep(val);
     const res = MAIN_MENU_ITEMS.find(({ n }) => n === val);
     setCurDep(res);
-    console.log(res);
+
+    //set factures list
+    const depCode = res.code;
+    console.log(FACTURES_LIST[depCode]);
   };
 
   return (
@@ -67,6 +70,10 @@ export default function SecFinance({ sectionData }) {
             inserer.
           </FormHelperText>
         </FormControl>
+      </Box>
+      <Box>
+        <Typography>{`dep: ${dep}`}</Typography>
+        <Typography>{`curDep code : ${curDep.code}`}</Typography>
       </Box>
     </Container>
   );
